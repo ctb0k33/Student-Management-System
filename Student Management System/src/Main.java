@@ -8,5 +8,7 @@ public class Main {
 		Menu menu= new Menu();
 		menu.printMenu();
 		menu.implement();
+		
+		System.out.println("END");
 	}
 }
