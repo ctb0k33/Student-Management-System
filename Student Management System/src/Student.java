@@ -1,10 +1,13 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
-public class Student {
-	Scanner scanner= new Scanner(System.in);
+public class Student implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	transient Scanner scanner= new Scanner(System.in);
 	private String name;
 	private float mark;
 	private String email;
@@ -50,7 +53,12 @@ public class Student {
 	public String getRank() {
 		return rank;
 	}
-
+	
+	public void setRank(String rank) {
+		this.rank=rank;
+	}
+	
+	//@overloading
 	public void setRank(float mark) {
 		if(0 <= mark && mark < 5) {
 			this.rank="Yếu";
@@ -238,8 +246,9 @@ public class Student {
 			inputStudent();
 		}
 		else {
-			StudentsID.add(ID);		
+			StudentsID.add(ID);	
 			Student newStudent= new Student(name,mark,email,rank,ID);
+			Xfile.writeFile(newStudent);
 			studentList.add(newStudent);
 		}
 	}
