@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -118,8 +119,16 @@ public class Student implements Serializable {
 		}
 	}
 	
+	//handle exception
+	private boolean isEmpty(String information) {
+		if(information.isBlank()) {
+			return true;
+		}
+		return false;
+	}
 	// handle exception
 	private boolean isValidName(String name) {
+		if(isEmpty(name)) return false;
 		for(int i=0;i<name.length();i++) {
 			if(name.charAt(i)==' ') continue;
 			if('A'>name.charAt(i) || ('Z'<name.charAt(i) && 'a'>name.charAt(i))
@@ -132,6 +141,7 @@ public class Student implements Serializable {
 	
 	// handle exception
 	boolean isValidMark(String mark) {
+		if(isEmpty(mark)) return false;
 		for(int i=0;i<mark.length();i++) {
 			if(mark.charAt(i)=='.') continue;
 			if(mark.charAt(i)<'0' || mark.charAt(i)>'9') {
@@ -146,6 +156,7 @@ public class Student implements Serializable {
 	
 	//handle exception
 	private boolean isValidEmail(String email) {
+		if(isEmpty(email)) return false;
 		for(int i=0;i<email.length();i++) {
 			if(email.charAt(i)==' ') {
 				return false;
@@ -154,7 +165,9 @@ public class Student implements Serializable {
 		return true;
 	}
 	
+	//handle exception
 	boolean isValidID(String ID) {
+		if(isEmpty(ID)) return false;
 		for(int i=0;i<ID.length();i++) {
 			if('0'>ID.charAt(i) || '9'<ID.charAt(i)) {
 				return false;
@@ -162,6 +175,8 @@ public class Student implements Serializable {
 		}
 		return true;
 	}
+	
+	//handle exception
 	boolean isValidRank(String Rank) {
 		List<String> Ranks = new ArrayList<String>();
 		Ranks.add("Yếu");
@@ -182,7 +197,7 @@ public class Student implements Serializable {
 			name=scanner.nextLine();
 			if(!isValidName(name)) {
 				System.out.println("Wrong input, please input again!");
-				System.out.println("Name can not contain number");
+				System.out.println("Name can not contain number and must contain at least 1 character");
 			}
 		}
 		while(!isValidName(name));
@@ -197,7 +212,7 @@ public class Student implements Serializable {
 			mark=scanner.nextLine();
 			if(!isValidMark(mark)) {
 				System.out.println("Wrong input,please input again!");
-				System.out.println("Mark can only contain number and .");
+				System.out.println("Mark can only contain number and . ");
 				System.out.println("Mark must be in the range from 0 to 10");
 			}
 		}
@@ -206,6 +221,7 @@ public class Student implements Serializable {
 		setRank(getMark());
 	}
 	
+	//input and handle exception
 	private void inputEmail() {
 		String email;
 		do {
@@ -213,13 +229,14 @@ public class Student implements Serializable {
 			email=scanner.nextLine();
 			if(!isValidEmail(email)) {
 				System.out.println("Wrong input, please input again!");
-				System.out.println("Email address can not contain character ' '");
+				System.out.println("Email address can not contain character ' ' and must contain at least 1 character");
 			}
 		}
 		while(!isValidEmail(email));
 		setEmail(email);
 	}
 	
+	//input and handle exception
 	private void inputID() {
 		String ID;
 		do {
@@ -227,7 +244,7 @@ public class Student implements Serializable {
 			ID=scanner.nextLine();
 			if(!isValidID(ID)) {
 				System.out.println("Wrong input,please input again!");
-				System.out.println("ID only can contain number");
+				System.out.println("ID only can contain number and must contain at least 1 number");
 			}
 		}
 		while(!isValidID(ID));
@@ -345,6 +362,23 @@ public class Student implements Serializable {
 					studentLists.set(j, temp);
 				}
 			}
+		}
+	}
+	
+	public static void PrintAllStudentInFile() {
+		List<Student> studentList= new ArrayList<Student>();
+		try {
+			studentList=Xfile.readFile();
+			if(studentList.size()==0) {
+				System.out.println("There is no student in the class!");
+			}
+			else {
+				for(Student student: studentList) {
+					printStudent(student);
+					System.out.println();				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }

@@ -10,7 +10,7 @@ public class Menu extends Student {
 				return false;
 			}
 		}
-		if(Integer.parseInt(optionChoose)<1 || Integer.parseInt(optionChoose)>11) {
+		if(Integer.parseInt(optionChoose)<1 || Integer.parseInt(optionChoose)>12) {
 			return false;
 		}
 		return true;
@@ -27,7 +27,8 @@ public class Menu extends Student {
 		System.out.println("===== 8: Average score of the class =====");
 		System.out.println("===== 9: Print all students who has score higher then average score =====");
 		System.out.println("===== 10: Statistics the number of students according to ranks =====");
-		System.out.println("===== 11: Exit =====");
+		System.out.println("===== 11: Show all students in file =====");
+		System.out.println("===== 12: Exit =====");
 	}
 	
 	private void createLineSpace() {
@@ -226,6 +227,12 @@ public class Menu extends Student {
 			implement();
 			break;
 		case "11":
+			Student.PrintAllStudentInFile();
+			createLineSpace();
+			printMenu();
+			implement();
+			break;
+		case "12":
 			System.out.println("*** Thank for using our service! ***");
 			return;		
 		}

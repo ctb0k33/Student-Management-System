@@ -43,7 +43,6 @@ public class Xfile  {
 		return studentList;
 			
 	}
-	
 	public static void writeFile(Student addStudent) {
 		try {
 			FileOutputStream file= new FileOutputStream("students.txt",true);
