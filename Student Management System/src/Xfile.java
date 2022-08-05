@@ -4,13 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 public class Xfile  {
 	
 	@SuppressWarnings("unchecked")
@@ -18,7 +12,7 @@ public class Xfile  {
 		ArrayList<Student> studentList= new ArrayList<Student>();
 		FileInputStream file = null;
 		DataInputStream data = null;
-		try {
+		try {	
 			file= new FileInputStream("students.txt");
 			data= new DataInputStream(file);
 			while (data.available()>0){
@@ -26,7 +20,7 @@ public class Xfile  {
 				addStudent.setName(data.readUTF());
 				addStudent.setMark(data.readFloat());
 				addStudent.setEmail(data.readUTF());
-				addStudent.setRank(data.readUTF());
+				addStudent.setRank(Rank.valueOf(data.readUTF()));
 				addStudent.setID(data.readUTF());
 				data.readUTF();
 				studentList.add(addStudent);
@@ -51,7 +45,7 @@ public class Xfile  {
 			data.writeUTF(addStudent.getName());
 	        data.writeFloat(addStudent.getMark());
 	        data.writeUTF(addStudent.getEmail());
-	        data.writeUTF(addStudent.getRank());
+	        data.writeUTF(addStudent.getRank().toString());
 	        data.writeUTF(addStudent.getID());
 	        data.writeUTF("\n");
 			data.close();
@@ -66,3 +60,4 @@ public class Xfile  {
 	}
 	
 }
+
